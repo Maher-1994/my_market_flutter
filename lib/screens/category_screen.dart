@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:my_market/datas/product_data.dart';
 import 'package:my_market/tiles/product_tile.dart';
 
-
 class CategoryScreen extends StatelessWidget {
 
   final DocumentSnapshot snapshot;
@@ -47,7 +46,11 @@ class CategoryScreen extends StatelessWidget {
                     ), //qtde de itens que vai ter na horizontal
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
-                      return ProductTile("grid", ProductData.fromDocument(snapshot.data.documents[index]));
+
+                      ProductData data = ProductData.fromDocument(snapshot.data.documents[index]);
+                      data.category = this.snapshot.documentID;
+
+                      return ProductTile("grid", data);
                     }
                   ),
                   
@@ -55,7 +58,11 @@ class CategoryScreen extends StatelessWidget {
                     padding: EdgeInsets.all(4.0),
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
-                      return ProductTile("list", ProductData.fromDocument(snapshot.data.documents[index]));
+
+                      ProductData data = ProductData.fromDocument(snapshot.data.documents[index]);
+                      data.category = this.snapshot.documentID;
+
+                      return ProductTile("list", data);
                     }
                   )
 

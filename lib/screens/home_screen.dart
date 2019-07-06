@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_market/tabs/home_tab.dart';
 import 'package:my_market/tabs/products_tab.dart';
+import 'package:my_market/widgets/cart_button.dart';
 import 'package:my_market/widgets/custom_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,6 +16,7 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           body: HomeTab(),
           drawer: CustomDrawer(_pageController),
+          floatingActionButton: CartButton(),
         ),
         Scaffold(
           appBar: AppBar(
@@ -24,6 +26,7 @@ class HomeScreen extends StatelessWidget {
           ),
           body: ProductsTab(),
           drawer: CustomDrawer(_pageController),
+          floatingActionButton: CartButton(),
         ),
         
       ],

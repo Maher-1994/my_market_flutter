@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/datas/cart_product.dart';
 import 'package:my_market/datas/product_data.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:my_market/models/cart_model.dart';
+import 'package:my_market/models/user_model.dart';
+import 'package:my_market/screens/login_screen.dart';
 
 
 class ProductScreen extends StatefulWidget {
@@ -129,8 +133,24 @@ class _ProductScreenState extends State<ProductScreen> {
                   child: RaisedButton(
                     elevation: 10.0,
                     onPressed: weight != null ? 
-                    () {} : null,
-                    child: Text("Adicionar a cesta de compras",
+                    () {
+                      if(UserModel.of(context).isLoggedIn()){
+                        // add ao carinho
+                        CartProduct cartProduct = CartProduct();
+                        cartProduct.weight = weight;
+                        cartProduct.quantity = 1;
+                        cartProduct.pid = product.id;
+                        cartProduct.category = product.category;
+
+                        CartModel.of(context).addCartItem(cartProduct);
+
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginScreen()));
+                      }
+                    } : null,
+                    child: Text(UserModel.of(context).isLoggedIn()
+                      ? "Adicionar a cesta de compras"
+                      : "Entre para comprar",
                       style: TextStyle(fontSize: 18.0),
                     ),
                     color: Theme.of(context).primaryColor,
